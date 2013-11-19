@@ -136,5 +136,10 @@ sed -ie 's|l6:6:wait:/etc/init.d/rc 6|#l6:6:wait:/etc/init.d/rc 6|g' /etc/initta
 # Also disable serial console
 sed -ie 's|T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100|#T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100|g' /etc/inittab 
 
+# Clone Repo to Setup-Tools
+git clone https://github.com/yves-ledermann/raspberrypi.git setup-tools
+
+
+# END
 echo "Installation Complete. Some changes might require a reboot."
 
