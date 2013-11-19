@@ -1,7 +1,18 @@
 #!/bin/bash
 
 # Interactive Raspberry Pi setup script
-# Author: Stephen Wood (www.heystephenwood.com)
+# by Yves Ledermann, Lederman Technologies (www.ltechnet.ch)
+# based on the work of Stephen Wood (www.heystephenwood.com)
+
+# USAGE:
+# curl "http://www.ltechnet.ch/temp/setup.sh" > setup.sh && chmod 777 setup.sh
+# sudo ./setup.sh hostname user pass
+ 
+
+# Public Key Yves
+PUBLIC_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhe0cpZHLaHwrZMWjTSXlhXafd5DC9wzB26drpQnqUxmFq5qINBb/wIBZDcbHQ/OeWzFO+REVsAh8UOL4JWkfZXNADSOfiaFYBCnWbJO/3gpFvrO46vafczpXbW33XH6P/fnpny0J9w7hJHoLA93WiugcTwjBbX6LkIjDa2fAW5imq0jep8bfpQTtfIEZdokTVbLoa9ecj6iDhj7TtRsPrm493NU8lArf+8MQIEWvL3k/ONVMiaisIgH4INqw/U+LoJ12M3XK/4RX7SbimcZwEO7aB0YlA+zwqfsLGXkSYpbd/OUfcZS3i7Sa7kKcFtRke+ZbvI3UvxEPWPbVdYzvAQ== Yves20121027"
+
+
 
 # Die on any errors
 set -e 
@@ -12,22 +23,55 @@ then
   exit 1
 fi
 
+if [[ "$1" != "" ]]
+then
+	echo "Use $1 as Hostname."
+	NEW_HOSTNAME=$1
+else
+	echo -n "Choose a hostname: "
+	read NEW_HOSTNAME
+fi
+
+if [[ "$2" != "" ]]
+then
+	echo "Use $2 as Username."
+	NEW_USER="$2"
+else
+	echo -n "User: "
+	read NEW_USER
+fi
+
+if [[ "$3" != "" ]]
+then
+	echo "Use $3 as Password."
+	PASS_PROMPT=="$3"
+else
+	echo -n "Password for user (leave blank for disabled): "
+	read PASS_PROMPT
+fi
+
 # Variables for the rest of the script
-echo -n "Choose a hostname: "
-read NEW_HOSTNAME
-echo -n "User: "
-read NEW_USER
-echo -n "Password for user (leave blank for disabled): "
-read PASS_PROMPT
-echo -n "Paste public key (leave blank for disabled): "
-read PUBLIC_KEY
-echo -n "Optionally supply an apt-mirror (press enter to skip): "
-read MIRROR
+
+
+#echo -n "Paste public key (leave blank for disabled): "
+#read PUBLIC_KEY
+#echo -n "Optionally supply an apt-mirror (press enter to skip): "
+#read MIRROR
+
+
+
+
 
 if [[ "$MIRROR" != "" ]]
 then
   echo "Acquire::http { proxy '$MIRROR'; };" > /etc/apt/apt.conf.d/02proxy
 fi
+
+# APT-GET Cache cleaning because of hash sum errors acc: http://stackoverflow.com/questions/15505775/debian-apt-packages-hash-sum-mismatch
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/partial/*
+apt-get clean
 
 apt-get -y update
 
