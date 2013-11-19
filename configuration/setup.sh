@@ -62,6 +62,8 @@ fi
 # Apply RamSplit
 echo "gpu_mem=16" >> /boot/config.txt
 
+# Apply Expand RootFS
+raspi-config --expand-rootfs
 
 
 if [[ "$MIRROR" != "" ]]
