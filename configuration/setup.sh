@@ -5,7 +5,7 @@
 # based on the work of Stephen Wood (www.heystephenwood.com)
 
 # USAGE:
-# curl "http://www.ltechnet.ch/temp/setup.sh" > setup.sh && chmod 777 setup.sh
+# curl "https://raw.github.com/yves-ledermann/raspberrypi/master/configuration/setup.sh" > setup.sh && chmod 777 setup.sh
 # sudo ./setup.sh hostname user pass
  
 
