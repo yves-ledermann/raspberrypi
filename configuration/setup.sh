@@ -59,6 +59,8 @@ fi
 #read MIRROR
 
 
+# Apply RamSplit
+echo "gpu_mem=16" >> /boot/config.txt
 
 
 
