@@ -66,10 +66,10 @@ echo "gpu_mem=16" >> /boot/config.txt
 raspi-config --expand-rootfs
 
 
-if [[ "$MIRROR" != "" ]]
-then
-  echo "Acquire::http { proxy '$MIRROR'; };" > /etc/apt/apt.conf.d/02proxy
-fi
+#if [[ "$MIRROR" != "" ]]
+#then
+#  echo "Acquire::http { proxy '$MIRROR'; };" > /etc/apt/apt.conf.d/02proxy
+#fi
 
 # APT-GET Cache cleaning because of hash sum errors acc: http://stackoverflow.com/questions/15505775/debian-apt-packages-hash-sum-mismatch
 apt-get clean
