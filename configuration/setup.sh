@@ -66,6 +66,10 @@ echo "gpu_mem=16" >> /boot/config.txt
 raspi-config --expand-rootfs
 
 
+
+echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
+deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free" > '/etc/apt/sources.list'
+
 #if [[ "$MIRROR" != "" ]]
 #then
 #  echo "Acquire::http { proxy '$MIRROR'; };" > /etc/apt/apt.conf.d/02proxy
